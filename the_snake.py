@@ -54,10 +54,10 @@ class GameObject:
 class Apple(GameObject):
     """Объект яблока"""
 
-    def __init__(self, occupied_positions):
+    def __init__(self, occupied_positions=None):
         super().__init__()
         self.body_color = APPLE_COLOR
-        self.occupied_positions = occupied_positions
+        self.occupied_positions = occupied_positions or []
         self.randomize_position()
 
     def randomize_position(self):
@@ -67,7 +67,8 @@ class Apple(GameObject):
                 randint(0, SCREEN_WIDTH // GRID_SIZE - 1) * GRID_SIZE,
                 randint(0, SCREEN_HEIGHT // GRID_SIZE - 1) * GRID_SIZE
             )
-            if self.position not in self.occupied_positions:
+            if (not self.occupied_positions
+                    or self.position not in self.occupied_positions):
                 break
 
     def draw(self):
